@@ -1,23 +1,49 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+{/* Common Component import */ }
+import React, { Component } from "react"
+import { View } from "react-native"
+import { Container, Content, Picker, Button, Text } from "native-base"
+import Expo from "expo"
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu. Test</Text>
-      </View>
-    );
-  }
+{/* Specific Component import */ }
+import HomeScreen from "./src/HomeScreen/index.js"
+
+{/* 
+  Class definition
+  Application input state
+*/}
+
+class TrainLogInit extends Component {
+    constructor() {
+        super()
+        this.state = {
+            isReadyToStart: false,
+            isError: false
+        }
+    }
+    async componentWillMount() {
+        try {
+            await Expo.Font.loadAsync({
+                Roboto: require("native-base/Fonts/Roboto.ttf"),
+                Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+                Ionicons: require("native-base/Fonts/Ionicons.ttf")
+            })
+            this.setState({ isReadyToStart: true })
+        } catch (error) {
+            console.error(error)
+            this.setState({ isError: true })
+        }
+    }
+    render() {
+        if (!this.state.isReadyToStart) {
+            return <Expo.AppLoading />
+        }
+        else if (this.state.isError) {
+            return (
+                <Text>Une erreur innatendu est survenue</Text>
+            )
+        } else {
+            return <HomeScreen />
+        }
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default TrainLogInit
