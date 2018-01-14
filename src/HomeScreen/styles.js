@@ -23,14 +23,14 @@ export default StyleSheet.create({
     swipeOut: {
         backgroundColor: 'white', 
         height: 80,
-        paddingLeft: 10
     },
     swipeOutView: {
         backgroundColor: 'white', 
         height: 80,
         borderWidth: 0.5,
         borderColor: '#d6d7da',
-        borderLeftColor: 'white'
+        borderLeftColor: 'white',
+        paddingLeft: 10
     },
     swipeOutTitle: {
         lineHeight: 35,

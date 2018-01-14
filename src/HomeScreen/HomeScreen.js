@@ -12,59 +12,71 @@ import styles from './styles'
   Home Screen => Training
 */}
 class HomeScreen extends React.Component {
-
+    constructor(props) {
+        super(props)
+     
+        this.state = ({
+            activeRow: null
+        })
+    }
     render() {
+
         let swipeoutBtns = [
             {
                 text: 'Editer',
                 backgroundColor: 'green',
                 underlayColor: 'grey',
                 sensitivity: 10,
-                autoClose: true
+                autoClose: true,
             },
             {
                 text: 'Dupliquer',
                 backgroundColor: 'blue',
                 underlayColor: 'grey',
-                sensitivity: 10
+                sensitivity: 10,
             },
             {
                 text: 'Archiver',
                 backgroundColor: 'orange',
                 underlayColor: 'grey',
-                sensitivity: 10
+                sensitivity: 10,
             },
             {
                 text: 'Supprimer',
                 backgroundColor: 'red',
                 underlayColor: 'grey',
-                sensitivity: 10
+                sensitivity: 10,
             }
         ], workoutList = [
             {
                 title: 'Push',
                 worked: 'Pectoraux',
-                day: 'Lundi'
+                day: 'Lundi',
+                rowId: 1
             },
             {
                 title: 'Leg',
                 worked: 'Jambe',
-                day: 'Mardi'
+                day: 'Mardi',
+                rowId: 2
             },
             {
                 title: 'Pull',
                 worked: 'Dos',
-                day: 'Mercredi'
+                day: 'Mercredi',
+                rowId: 3
             },
             {
                 title: 'Push',
                 worked: 'Pectoraux',
-                day: 'Jeudi'
+                day: 'Jeudi',
+                rowId: 4
             },
             {
                 title: 'Push',
                 worked: 'Dos',
-                day: 'Vendredi'
+                day: 'Vendredi',
+                rowId: 5
             },
         ]
 
@@ -92,7 +104,10 @@ class HomeScreen extends React.Component {
                     dataArray={workoutList}
                     renderRow={data => {
                         return (
-                            <Swipeout style={styles.swipeOut} right={swipeoutBtns}>
+                            <Swipeout style={styles.swipeOut} right={swipeoutBtns} onOpen={(secId, rowId, direction) => {
+                                this.setState({ activeRow: data.rowId })
+                                console.log(this.state.activeRow)
+                            }}>
                                 <View style={styles.swipeOutView}>
                                     <Text style={styles.swipeOutTitle}>{data.title}</Text>
                                     <Text style={styles.swipeOutWorked}>{data.worked}</Text>
